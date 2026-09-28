@@ -6,17 +6,17 @@
 
   <xacro:macro name="leg" params="n xyz rpy parent">
 
-  <!--
+<!--   
   <joint name="leg${n}-servo-joint" type="fixed">
     <parent link="${parent}"/>
-    <child link="leg${n}-servo1"/>
+    <child link="hip_${n}"/>
     <origin rpy="0 0 0" xyz="0 0 0"/>
   </joint>
  
-  <xacro:lx224 name="leg${n}-servo1" rpy="0 0 0" xyz="0 0 0" color="red"/>
-  -->
+  <xacro:lx224 name="hip_${n}" rpy="0 0 0" xyz="0 0 0" color="red"/> -->
+ 
   <!-- Leg Joint 1 -->
-  <joint name="leg${n}_joint1" type="revolute">
+  <joint name="hip_${n}" type="revolute">
     <parent link="${parent}"/>
     <child link="leg${n}_link1"/>
     <origin xyz="${xyz}" rpy="${rpy}"/>
@@ -34,10 +34,10 @@
   </link>
 
   <!-- Leg Joint 2 -->
-  <joint name="leg${n}_joint2" type="revolute">
+  <joint name="knee_${n}" type="revolute">
     <parent link="leg${n}_link1"/>
     <child link="leg${n}_link2"/>
-    <origin xyz="0.0 0.6 0.0" rpy="0 0 0"/>
+    <origin xyz="0.0 0.6 0.0" rpy="${pi/2} 0 0"/>
     <axis xyz="0 0 1"/>
     <limit effort="100.0" velocity="1.0" lower="-${2*pi/3}" upper="${2*pi/3}"/>
   </joint>
@@ -52,7 +52,7 @@
   </link>
 
   <!-- Leg Joint 3 -->
-  <joint name="leg${n}_joint3" type="revolute">
+  <joint name="ankle_${n}" type="revolute">
     <parent link="leg${n}_link2"/>
     <child link="leg${n}_link3"/>
     <origin xyz="0.0 0.6 0.0" rpy="0 0 0"/>
@@ -68,6 +68,7 @@
       <origin xyz="0.0 0.4 0.0" rpy="0 0 0"/>
     </visual>
   </link>
+
   </xacro:macro>
 </robot>
 
