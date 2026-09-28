@@ -18,6 +18,12 @@ def generate_launch_description():
 
     robot_description_content = ParameterValue(Command(['xacro ', urdf_path]), value_type=str)
 
+    joint_state_publisher_node = Node(
+        package="joint_state_publisher",
+        executable="joint_state_publisher",
+    )
+    ld.add_action(joint_state_publisher_node)
+
     robot_state_publisher_node = Node(
             package='robot_state_publisher',
             executable='robot_state_publisher',
@@ -27,15 +33,15 @@ def generate_launch_description():
 
     ld.add_action(robot_state_publisher_node)
 
-    default_rviz_config_path = PathJoinSubstitution(["quaro_description", 'rviz', 'urdf.rviz'])
-    ld.add_action(DeclareLaunchArgument(name='rviz_config', default_value=default_rviz_config_path,
-                                        description='Absolute path to rviz config file'))
+    # default_rviz_config_path = PathJoinSubstitution(["quaro_description", 'rviz', 'urdf.rviz'])
+    # ld.add_action(DeclareLaunchArgument(name='rviz_config', default_value=default_rviz_config_path,
+    #                                     description='Absolute path to rviz config file'))
 
-    ld.add_action(Node(
-        package='rviz2',
-        executable='rviz2',
-        output='screen',
-        arguments=['-d', LaunchConfiguration('rviz_config')],
-    ))
+    # ld.add_action(Node(
+    #     package='rviz2',
+    #     executable='rviz2',
+    #     output='screen',
+    #     arguments=['-d', LaunchConfiguration('rviz_config')],
+    # ))
     return ld
 
