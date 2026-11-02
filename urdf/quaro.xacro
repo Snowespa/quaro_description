@@ -15,7 +15,7 @@
   <!-- Leg macro -->
   <xacro:include filename="$(find quaro_description)/urdf/leg/leg.0.0.xacro"/>
   <!-- Import quaro ros2_control description -->
-  <xacro:include filename="$(find quaro_hardware_interface)/ros2_control/hardware_interface.ros2_control.xacro"/>
+  <!-- <xacro:include filename="$(find quaro_hardware_interface)/ros2_control/hardware_interface.ros2_control.xacro"/> -->
   <!-- Base Link -->
   <link name="base_link">
     <visual>
