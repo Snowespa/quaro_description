@@ -1,6 +1,11 @@
 <?xml version="1.0"?>
 <robot name="quaro" xmlns:xacro="http://ros.org/wiki/xacro">
 
+  <xacro:property name="rot0" value="-1"/>
+  <xacro:property name="rot1" value="1"/>
+  <xacro:property name="rot2" value="-1"/>
+  <xacro:property name="rot3" value="1"/>
+
   <!-- Various constant definitions -->
   <xacro:include filename='$(find quaro_description)/urdf/common/constants.xacro'/>
   <!-- Servo visual -->
@@ -10,7 +15,7 @@
   <!-- Leg macro -->
   <xacro:include filename="$(find quaro_description)/urdf/leg/leg.0.0.xacro"/>
   <!-- Import quaro ros2_control description -->
-  <!-- <xacro:include filename="$(find quaro_hardware_interface)/ros2_control/hardware_interface.ros2_control.xacro"/> -->
+  <xacro:include filename="$(find quaro_hardware_interface)/ros2_control/hardware_interface.ros2_control.xacro"/>
   <!-- Base Link -->
   <link name="base_link">
     <visual>
@@ -23,13 +28,13 @@
   </link>
 
   <!-- Chain A -->
-  <xacro:leg n="0" parent="base_link" rot="1" xyz="${scale*47} ${scale*91.5} ${scale*0.75}" rpy="0 0 ${pi/4}"/>
+  <xacro:leg n="0" parent="base_link" rot="${rot0}" xyz="${scale*47} ${scale*91.5} ${scale*0.75}" rpy="0 0 ${pi/4}"/>
   <!-- Chain B -->
-  <xacro:leg n="1" parent="base_link" rot="-1" xyz="-${scale*47} ${scale*91.5} ${scale*0.75}" rpy="0 0 ${3*pi/4}"/>
+  <xacro:leg n="1" parent="base_link" rot="${rot1}" xyz="-${scale*47} ${scale*91.5} ${scale*0.75}" rpy="0 0 ${3*pi/4}"/>
   <!-- Chain B -->
-  <xacro:leg n="2" parent="base_link" rot="-1" xyz="${scale*47} -${scale*91.5} ${scale*0.75}" rpy="0 0 -${pi/4}"/>
+  <xacro:leg n="2" parent="base_link" rot="${rot3}" xyz="-${scale*47} -${scale*91.5} ${scale*0.75}" rpy="0 0 -${3*pi/4}"/>
   <!-- Chain B -->
-  <xacro:leg n="3" parent="base_link" rot="1" xyz="-${scale*47} -${scale*91.5} ${scale*0.75}" rpy="0 0 -${3*pi/4}"/>
+  <xacro:leg n="3" parent="base_link" rot="${rot2}" xyz="${scale*47} -${scale*91.5} ${scale*0.75}" rpy="0 0 -${pi/4}"/>
 
-  <!-- <xacro:quaro_ros2_control/> -->
+  <xacro:quaro_ros2_control rot0="${rot0}" rot1="${rot1}" rot2="${rot2}" rot3="${rot3}"/>
 </robot>
